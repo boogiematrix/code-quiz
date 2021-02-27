@@ -22,6 +22,7 @@ create a function that appends a list with an 'initials' input along with
 the user's score
 */
 
+//List of constant variables
 const timer = document.getElementById('timer');
 const button = document.getElementById('button');
 const quizBox = document.getElementById('quiz-box');
@@ -30,6 +31,7 @@ const labelA = document.querySelector('label[for= "a"]');
 const labelB = document.querySelector('label[for= "b"]');
 const labelC = document.querySelector('label[for= "c"]');
 
+//Array of questions
 const allQuestions = [
     {
         question:'What javascript function do we use to add and element to the end of an array?',
@@ -95,40 +97,39 @@ const allQuestions = [
         correctAnswer: 'a',
     },
     {
-        question:'',
+        question:'Which of these will NOT increment myAge by one?',
         answers: {
-            a: '',
-            b: '',
-            c: '',
+            a: 'myAge + 1',
+            b: 'myAge++',
+            c: 'myAge += 1',
         },
-        correctAnswer: '',
+        correctAnswer: 'a',
     },
     {
-        question:'',
+        question:'Which of these terms can be used to declare a variable?',
         answers: {
-            a: '',
-            b: '',
-            c: '',
+            a: 'while',
+            b: 'const',
+            c: 'x',
         },
-        correctAnswer: '',
+        correctAnswer: 'b',
     },
     {
-        question:'',
+        question:'If two adjacent elements of block display have a margin: 20px 10px. How far apart are they?',
         answers: {
-            a: '',
-            b: '',
-            c: '',
+            a: '20px',
+            b: '40px',
+            c: '30px',
         },
-        correctAnswer: '',
+        correctAnswer: 'a',
     },
 ];
 
-
-
-button.addEventListener('click', makeQuiz)
+//mutable variables
 let score = 0;
 let timeRemaining = 120;
 
+button.addEventListener('click', makeQuiz)
 
 function makeQuiz() {
     button.removeEventListener('click', makeQuiz)
@@ -162,9 +163,10 @@ function makeQuiz() {
         } else {
             timeRemaining -= 5;
         };
-
+        
+    
         i++;
-        if (i > allQuestions.length) {
+        if (i === allQuestions.length) {
             displayResults();
         } else {
             quizPrompt.textContent = allQuestions[i].question;
