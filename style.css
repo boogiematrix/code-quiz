@@ -1,0 +1,50 @@
+body {
+    box-sizing: border-box;
+    display: flex;
+    flex-flow: column wrap;
+    background-color: rgb(216, 148, 255);
+    
+}
+
+header {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+
+h1 {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+}
+
+#timer {
+    display: flex;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-style: bold;
+    font-size: 25px;
+    padding: 25px;
+}
+
+section {
+    display: flex;
+    min-height: 300px;
+    margin: 0 auto;
+    width: 90%;
+    background-color: rgb(253, 180, 180);
+    border-radius: 10%;
+}
+
+form {
+    background-color: rgb(188, 220, 248);
+    width: 90%;
+    border-radius: 2%;
+}
+
+button {
+    align-self: flex-start;
+    margin: 10px 0 0 50px;
+    border: none;
+    background-color: rgb(184, 247, 212);
+    padding: 10px;
+    border-radius: 7%;
+}
