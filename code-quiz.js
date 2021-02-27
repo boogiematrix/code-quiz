@@ -25,10 +25,10 @@ the user's score
 const timer = document.getElementById('timer');
 const button = document.getElementById('button');
 const quizBox = document.getElementById('quiz-box');
-const quizPrompt = document.getElementById('quiz-prompt')
-const labelA = document.querySelector('label[for= "a"]')
-const labelB = document.querySelector('label[for= "b"]')
-const labelC = document.querySelector('label[for= "c"]')
+const quizPrompt = document.getElementById('quiz-prompt');
+const labelA = document.querySelector('label[for= "a"]');
+const labelB = document.querySelector('label[for= "b"]');
+const labelC = document.querySelector('label[for= "c"]');
 
 const allQuestions = [
     {
@@ -134,7 +134,7 @@ function makeQuiz() {
     button.removeEventListener('click', makeQuiz)
     button.textContent = 'Submit';
     let i = 0;
-
+    
     button.addEventListener('click', checkAnswer)
     
     const timeInterval = setInterval(function () {
@@ -147,14 +147,31 @@ function makeQuiz() {
             displayResults();
         }
     }, 1000)
-
+    
     quizPrompt.textContent = allQuestions[i].question;
     labelA.textContent = allQuestions[i].answers.a;
     labelB.textContent = allQuestions[i].answers.b;
     labelC.textContent = allQuestions[i].answers.c;
     
     function checkAnswer() {
+        let selected = document.querySelector('input[name="question"]:checked').value;
+        if (selected == false) {
+            checkAnswer()
+        } else if (selected === allQuestions[i].correctAnswer) {
+            score++;
+        } else {
+            timeRemaining -= 5;
+        };
 
+        i++;
+        if (i > allQuestions.length) {
+            displayResults();
+        } else {
+            quizPrompt.textContent = allQuestions[i].question;
+            labelA.textContent = allQuestions[i].answers.a;
+            labelB.textContent = allQuestions[i].answers.b;
+            labelC.textContent = allQuestions[i].answers.c;
+        }
     }
 
 }
