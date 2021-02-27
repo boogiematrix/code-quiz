@@ -30,6 +30,9 @@ const quizPrompt = document.getElementById('quiz-prompt');
 const labelA = document.querySelector('label[for= "a"]');
 const labelB = document.querySelector('label[for= "b"]');
 const labelC = document.querySelector('label[for= "c"]');
+const radios = document.querySelectorAll('input[type= "radio')
+const initialsLabel = document.querySelector('label[for= "initials"]')
+const initialsInput = document.querySelector('input[type= "text"]')
 
 //Array of questions
 const allQuestions = [
@@ -128,6 +131,7 @@ const allQuestions = [
 //mutable variables
 let score = 0;
 let timeRemaining = 120;
+let finalTime = 0;
 
 button.addEventListener('click', makeQuiz)
 
@@ -142,12 +146,18 @@ function makeQuiz() {
         timeRemaining--;
         timer.textContent = timeRemaining;
         
-        if (timeRemaining === 0){
+        if (timeRemaining === 0 || i === allQuestions.length){
             clearInterval(timeInterval);
             timer.textContent = "Time's up!";
             displayResults();
+            button.removeEventListener('click', checkAnswer)
         }
     }, 1000)
+    
+    for (let j=0 ; j < radios.length; j++) {
+        radios[j].style.visibility = 'visible';
+    }
+    
     
     quizPrompt.textContent = allQuestions[i].question;
     labelA.textContent = allQuestions[i].answers.a;
@@ -164,7 +174,7 @@ function makeQuiz() {
             timeRemaining -= 5;
         };
         
-    
+        
         i++;
         if (i === allQuestions.length) {
             displayResults();
@@ -175,8 +185,20 @@ function makeQuiz() {
             labelC.textContent = allQuestions[i].answers.c;
         }
     }
-
+    
 }
 
 
-function displayResults() {}
+function displayResults() {
+    timer.style.visibility = 'hidden';
+    quizPrompt.textContent = `Thanks for playing! You got ${score} right out of 10 with ${timeRemaining} seconds to spare`;
+    labelA.textContent = '';
+    labelB.textContent = '';
+    labelC.textContent = '';
+    
+    for (let j=0 ; j < radios.length; j++) {
+        radios[j].style.visibility = 'hidden';
+    }
+    initialsInput.style.visibility = 'visible';
+    initialsLabel.textContent = 'Give us three characters to remember you by:'
+}
