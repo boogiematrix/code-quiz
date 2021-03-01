@@ -133,16 +133,17 @@ const allQuestions = [
 let score = 0;
 let timeRemaining = 120;
 let finalTime = 0;
-
+//Turns button on to start quiz
 button.addEventListener('click', makeQuiz)
 
+//this begins the initial premise of the question loop
 function makeQuiz() {
     button.removeEventListener('click', makeQuiz)
     button.textContent = 'Submit';
     let i = 0;
     
     button.addEventListener('click', checkAnswer)
-    
+    //clock function
     const timeInterval = setInterval(function () {
         timeRemaining--;
         timer.textContent = timeRemaining;
@@ -154,18 +155,20 @@ function makeQuiz() {
             displayResults();
         }
     }, 1000)
-    
+    //makes radio inputs visible
     for (let j=0 ; j < radios.length; j++) {
         radios[j].style.visibility = 'visible';
     }
     
-    
+    //makes questions visible
     quizPrompt.textContent = allQuestions[i].question;
     labelA.textContent = allQuestions[i].answers.a;
     labelB.textContent = allQuestions[i].answers.b;
     labelC.textContent = allQuestions[i].answers.c;
     
+    //this is where the loop repeat begins
     function checkAnswer() {
+        
         let selected = document.querySelector('input[name="question"]:checked').value;
         if (selected == false) {
             checkAnswer()
@@ -174,7 +177,6 @@ function makeQuiz() {
         } else {
             timeRemaining -= 5;
         };
-        
         
         i++;
         if (i === allQuestions.length) {
@@ -194,6 +196,7 @@ function makeQuiz() {
 
 
 function displayResults() {
+    //resets screen
     timer.style.visibility = 'hidden';
     quizPrompt.textContent = `Thanks for playing! You got ${score} right out of 10 with ${timeRemaining} seconds to spare`;
     labelA.textContent = '';
@@ -204,12 +207,12 @@ function displayResults() {
         radios[j].style.visibility = 'hidden';
     }
     initialsInput.style.visibility = 'visible';
-    initialsLabel.textContent = 'Give us three characters to remember you by:'
+    initialsLabel.textContent = 'Write your initials here!'
     
     function postHighScore() {
         let posterity = document.getElementById('initials').value
-        console.log(posterity)
         let record = document.createElement('li');
+        //code for adding your score
         if(posterity.length > 3){
             window.alert('Limit your initials to three characters')
         } else {
