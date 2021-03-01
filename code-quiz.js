@@ -33,6 +33,7 @@ const labelC = document.querySelector('label[for= "c"]');
 const radios = document.querySelectorAll('input[type= "radio')
 const initialsLabel = document.querySelector('label[for= "initials"]')
 const initialsInput = document.querySelector('input[type= "text"]')
+const hiScore = document.getElementById('scorelist')
 
 //Array of questions
 const allQuestions = [
@@ -146,11 +147,11 @@ function makeQuiz() {
         timeRemaining--;
         timer.textContent = timeRemaining;
         
-        if (timeRemaining === 0 || i === allQuestions.length){
+        if (timeRemaining === 0){
             clearInterval(timeInterval);
             timer.textContent = "Time's up!";
-            displayResults();
             button.removeEventListener('click', checkAnswer)
+            displayResults();
         }
     }, 1000)
     
@@ -177,6 +178,9 @@ function makeQuiz() {
         
         i++;
         if (i === allQuestions.length) {
+            clearInterval(timeInterval);
+            timer.textContent = "";
+            button.removeEventListener('click', checkAnswer)
             displayResults();
         } else {
             quizPrompt.textContent = allQuestions[i].question;
@@ -201,4 +205,20 @@ function displayResults() {
     }
     initialsInput.style.visibility = 'visible';
     initialsLabel.textContent = 'Give us three characters to remember you by:'
+    
+    function postHighScore() {
+        let posterity = document.getElementById('initials').value
+        console.log(posterity)
+        let record = document.createElement('li');
+        if(posterity.length > 3){
+            window.alert('Limit your initials to three characters')
+        } else {
+        record.textContent = `${posterity}: ${score} correct ${timeRemaining} seconds`;
+        hiScore.appendChild(record);
+        button.removeEventListener('click', postHighScore)
+        initialsInput.style.visibility = 'hidden';
+        initialsLabel.textContent = ''
+        }
+    }
+    button.addEventListener('click', postHighScore)
 }
