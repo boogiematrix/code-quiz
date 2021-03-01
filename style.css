@@ -28,6 +28,7 @@ h1 {
 
 section {
     display: flex;
+    flex-flow: row-reverse wrap;
     min-height: 300px;
     margin: 0 auto;
     width: 90%;
@@ -39,6 +40,16 @@ section {
     background-color: rgb(188, 220, 248);
     width: 90%;
     border-radius: 2%;
+    display: block;
+    transition: opacity 1s;
+}
+
+#highscore {
+    width: 10%;
+}
+
+#highscore:hover ~ #quiz-box{
+    opacity: 0;
 }
 
 p {
@@ -62,4 +73,9 @@ button {
     background-color: rgb(184, 247, 212);
     padding: 10px;
     border-radius: 7%;
+}
+
+ol {
+    background-color:  rgb(253, 180, 180);
+    margin: 3%;
 }
