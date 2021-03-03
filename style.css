@@ -29,7 +29,7 @@ h1 {
 section {
     display: flex;
     flex-flow: row-reverse wrap;
-    min-height: 300px;
+    min-height: 400px;
     margin: 0 auto;
     width: 90%;
     background-color: rgb(253, 180, 180);
@@ -44,6 +44,7 @@ section {
     z-index: 5;
     transition: opacity 1s;
     transition-delay: .3s;
+    height: 400px;
 }
 
 #highscore {
@@ -75,7 +76,7 @@ input {
 }
 
 input {
-    visibility: hidden;
+    display: none;
 }
 
 button {

@@ -35,6 +35,7 @@ const initialsLabel = document.querySelector('label[for= "initials"]')
 const initialsInput = document.querySelector('input[type= "text"]')
 const hiScoreBox = document.getElementById('scorelist')
 const posterity = document.getElementById('initials')
+
 class Record {
     constructor(inits, scor, seconds) {
         this.posterityLog = inits;
@@ -171,7 +172,7 @@ function makeQuiz() {
     }, 1000)
     //makes radio inputs visible
     for (let j=0 ; j < radios.length; j++) {
-        radios[j].style.visibility = 'visible';
+        radios[j].style.display = 'inline-block';
     }
     
     //makes questions visible
@@ -209,7 +210,7 @@ function makeQuiz() {
 }
 //creates new object containing user score data, pushes it to an array and sorts
 function scoreSort() {
-    highScores = JSON.parse(window.localStorage.getItem('highScores'));
+   highScores = JSON.parse(window.localStorage.getItem('highScores'));
     let record = new Record(posterity.value, score, timeRemaining);
     highScores.push(record);
     highScores = highScores.sort((a,b) => {return b.scoreLog - a.scoreLog})
@@ -220,6 +221,7 @@ function scoreSort() {
 }
 //gets scores from storage and creates a list in html
 function getHighScores() {
+    hiScoreBox.innerHTML = '';
     highScores = JSON.parse(window.localStorage.getItem('highScores'));
     for (i=0; i < highScores.length; i++){
         let ranking = document.createElement('li');
@@ -237,31 +239,24 @@ function displayResults() {
     labelC.textContent = '';
     //hides radio inputs
     for (let j=0 ; j < radios.length; j++) {
-        radios[j].style.visibility = 'hidden';
+        radios[j].style.display = 'none';
     }
     //reveals initials input
-    initialsInput.style.visibility = 'visible';
+    initialsInput.style.display = 'inline-block';
     initialsLabel.textContent = 'Write your initials here!'
     
     function postHighScore() {
-        //let posterity = document.getElementById('initials').value
-        //TODO add function for array object
+
         //code for adding your score
-        //TODO add for loop 
         if(posterity.value.length > 3){
             window.alert('Limit your initials to three characters')
         } else {
             scoreSort()
-            //window.localStorage.setItem('highScores', JSON.stringify(highScores))
             getHighScores()
-            /*for (i=0; i < highScores.length; i++){
-                let ranking = document.createElement('li');
-                ranking.textContent = `${highScores[i].posterityLog}: ${highScores[i].scoreLog} correct ${highScores[i].timeRemainingLog} seconds`;
-                hiScoreBox.appendChild(ranking);
-            }*/
+
             //reset screen
             button.removeEventListener('click', postHighScore)
-            initialsInput.style.visibility = 'hidden';
+            initialsInput.style.display = 'none';
             initialsLabel.textContent = ''
         }
     }
