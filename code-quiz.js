@@ -33,7 +33,15 @@ const labelC = document.querySelector('label[for= "c"]');
 const radios = document.querySelectorAll('input[type= "radio')
 const initialsLabel = document.querySelector('label[for= "initials"]')
 const initialsInput = document.querySelector('input[type= "text"]')
-const hiScore = document.getElementById('scorelist')
+const hiScoreBox = document.getElementById('scorelist')
+const posterity = document.getElementById('initials')
+class Record {
+    constructor(inits, scor, seconds) {
+        this.posterityLog = inits;
+        this.scoreLog = scor;
+        this.timeRemainingLog = seconds;
+    }
+}
 
 //Array of questions
 const allQuestions = [
@@ -137,8 +145,11 @@ let highScores = [];
 
 //TODO add localstorage to page
 //Turns button on to start quiz
-button.addEventListener('click', makeQuiz)
 
+function init() {
+    getHighScores()
+    button.addEventListener('click', makeQuiz)
+}
 //this begins the initial premise of the question loop
 function makeQuiz() {
     button.removeEventListener('click', makeQuiz)
@@ -185,7 +196,7 @@ function makeQuiz() {
         if (i === allQuestions.length) {
             clearInterval(timeInterval);
             timer.textContent = "";
-            button.removeEventListener('click', checkAnswer)
+            button.removeEventListener('click', checkAnswer);
             displayResults();
         } else {
             quizPrompt.textContent = allQuestions[i].question;
@@ -196,7 +207,26 @@ function makeQuiz() {
     }
     
 }
-
+//creates new object containing user score data, pushes it to an array and sorts
+function scoreSort() {
+    highScores = JSON.parse(window.localStorage.getItem('highScores'));
+    let record = new Record(posterity.value, score, timeRemaining);
+    highScores.push(record);
+    highScores = highScores.sort((a,b) => {return b.scoreLog - a.scoreLog})
+    if (highScores.length > 10) {
+        highScores.pop()
+    };
+    window.localStorage.setItem('highScores', JSON.stringify(highScores))
+}
+//gets scores from storage and creates a list in html
+function getHighScores() {
+    highScores = JSON.parse(window.localStorage.getItem('highScores'));
+    for (i=0; i < highScores.length; i++){
+        let ranking = document.createElement('li');
+        ranking.textContent = `${highScores[i].posterityLog}: ${highScores[i].scoreLog} correct ${highScores[i].timeRemainingLog} seconds`;
+        hiScoreBox.appendChild(ranking);
+    }
+}
 
 function displayResults() {
     //resets screen
@@ -214,16 +244,22 @@ function displayResults() {
     initialsLabel.textContent = 'Write your initials here!'
     
     function postHighScore() {
-        let posterity = document.getElementById('initials').value
+        //let posterity = document.getElementById('initials').value
         //TODO add function for array object
         //code for adding your score
         //TODO add for loop 
-        let record = document.createElement('li');
-        if(posterity.length > 3){
+        if(posterity.value.length > 3){
             window.alert('Limit your initials to three characters')
         } else {
-            record.textContent = `${posterity}: ${score} correct ${timeRemaining} seconds`;
-            hiScore.appendChild(record);
+            scoreSort()
+            //window.localStorage.setItem('highScores', JSON.stringify(highScores))
+            getHighScores()
+            /*for (i=0; i < highScores.length; i++){
+                let ranking = document.createElement('li');
+                ranking.textContent = `${highScores[i].posterityLog}: ${highScores[i].scoreLog} correct ${highScores[i].timeRemainingLog} seconds`;
+                hiScoreBox.appendChild(ranking);
+            }*/
+            //reset screen
             button.removeEventListener('click', postHighScore)
             initialsInput.style.visibility = 'hidden';
             initialsLabel.textContent = ''
@@ -231,16 +267,5 @@ function displayResults() {
     }
     button.addEventListener('click', postHighScore)
 }
-/*TODO creat an array of objects. each object will look like
-{
-    posterityLog: PPL,
-    scoreLog: 10,
-    timeRemainingLog: 70,
-}
-push each new score to the array
-sort array by score
-trim scores after ten
-let array = array.sort((a, b) => (a.scoreLog < b.scoreLog) ? 1 : (a.scoreLog > b.scoreLog) ? -1 : 0);
-console.log(array);
 
-*/
+init()
