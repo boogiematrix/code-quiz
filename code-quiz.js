@@ -133,6 +133,9 @@ const allQuestions = [
 let score = 0;
 let timeRemaining = 120;
 let finalTime = 0;
+let highScores = [];
+
+//TODO add localstorage to page
 //Turns button on to start quiz
 button.addEventListener('click', makeQuiz)
 
@@ -202,26 +205,42 @@ function displayResults() {
     labelA.textContent = '';
     labelB.textContent = '';
     labelC.textContent = '';
-    
+    //hides radio inputs
     for (let j=0 ; j < radios.length; j++) {
         radios[j].style.visibility = 'hidden';
     }
+    //reveals initials input
     initialsInput.style.visibility = 'visible';
     initialsLabel.textContent = 'Write your initials here!'
     
     function postHighScore() {
         let posterity = document.getElementById('initials').value
-        let record = document.createElement('li');
+        //TODO add function for array object
         //code for adding your score
+        //TODO add for loop 
+        let record = document.createElement('li');
         if(posterity.length > 3){
             window.alert('Limit your initials to three characters')
         } else {
-        record.textContent = `${posterity}: ${score} correct ${timeRemaining} seconds`;
-        hiScore.appendChild(record);
-        button.removeEventListener('click', postHighScore)
-        initialsInput.style.visibility = 'hidden';
-        initialsLabel.textContent = ''
+            record.textContent = `${posterity}: ${score} correct ${timeRemaining} seconds`;
+            hiScore.appendChild(record);
+            button.removeEventListener('click', postHighScore)
+            initialsInput.style.visibility = 'hidden';
+            initialsLabel.textContent = ''
         }
     }
     button.addEventListener('click', postHighScore)
 }
+/*TODO creat an array of objects. each object will look like
+{
+    posterityLog: PPL,
+    scoreLog: 10,
+    timeRemainingLog: 70,
+}
+push each new score to the array
+sort array by score
+trim scores after ten
+let array = array.sort((a, b) => (a.scoreLog < b.scoreLog) ? 1 : (a.scoreLog > b.scoreLog) ? -1 : 0);
+console.log(array);
+
+*/
