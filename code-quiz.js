@@ -7,11 +7,12 @@ const quizPrompt = document.getElementById('quiz-prompt');
 const labelA = document.querySelector('label[for= "a"]');
 const labelB = document.querySelector('label[for= "b"]');
 const labelC = document.querySelector('label[for= "c"]');
-const radios = document.querySelectorAll('input[type= "radio')
-const initialsLabel = document.querySelector('label[for= "initials"]')
-const initialsInput = document.querySelector('input[type= "text"]')
-const hiScoreBox = document.getElementById('scorelist')
-const posterity = document.getElementById('initials')
+const radios = document.querySelectorAll('input[type= "radio');
+const initialsLabel = document.querySelector('label[for= "initials"]');
+const initialsInput = document.querySelector('input[type= "text"]');
+const hiScoreBox = document.getElementById('scorelist');
+const posterity = document.getElementById('initials');
+const scoreButton = document.getElementById('highscore');
 
 //stores score, initials, and time
 class Record {
@@ -127,6 +128,13 @@ let highScores = [];
 function init() {
     getHighScores()
     button.addEventListener('click', makeQuiz)
+    scoreButton.addEventListener('click', function() {
+        if(quizBox.style.opacity != 1) {
+            quizBox.style.opacity = 1
+        } else {
+            quizBox.style.opacity = 0
+        }
+    });
 }
 //this begins the initial premise of the question loop
 function makeQuiz() {

@@ -49,6 +49,7 @@ section {
     width: 90%;
     border-radius: 2%;
     z-index: 5;
+    opacity: 1;
     transition: opacity 1s;
     transition-delay: .3s;
     height: 400px;
@@ -61,6 +62,7 @@ section {
     display: flex;
     flex-flow: column wrap;
     align-content: center;
+    z-index: 2;
 }
 
 #highscore:hover ~ #quiz-box{
@@ -93,6 +95,10 @@ button {
     background-color: var(--accent);
     padding: 10px;
     border-radius: 7%;
+    width: 200px;
+    height: 90px;
+    font-weight: bold;
+    font-size: 30px;
 }
 
 #scorebox {
