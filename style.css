@@ -173,6 +173,8 @@ button {
 
     #highscore {
         height: 70px;
+        text-align: center;
+        justify-content: center;
     }
 
     #scorebox {
