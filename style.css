@@ -110,12 +110,13 @@ button {
 @media screen and (max-width: 738px) {
     section {
         flex-flow: column-reverse wrap;
-        height: 600px;
+        height: 500px;
+        font-size: 16px;
     }
 
     #quiz-box {
         width: 100%;
-        height: 500px;
+        height: 400px;
     }
 
     #highscore {
@@ -138,8 +139,46 @@ button {
         align-self: center;
         margin: 30px 0;
         display: inline-block;
-        height: 200px;
+        height: 150px;
         border: 1px solid rgb(99, 60, 94);
         font-size: 30px;
+    }
+}
+
+@media screen and (max-width: 420px) {
+    h1,
+    #timer {
+        font-size: 18px;
+        padding: 10px;
+    }
+
+    #timer {
+        margin: 10px 5px 0 0;
+    }
+
+    section {
+        height: 400px;
+        font-size: 13px;
+    }
+
+    #quiz-box {
+        height: 330px;
+    }
+
+    #highscore {
+        height: 70px;
+    }
+
+    #scorebox {
+        font-size: 10px;
+    }
+
+    label,
+    input {
+        margin: 5px 5px;
+    }
+
+    button {
+        height: 100px;
     }
 }
