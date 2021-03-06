@@ -190,11 +190,15 @@ function makeQuiz() {
 function scoreSort() {
    highScores = JSON.parse(window.localStorage.getItem('highScores'));
     let record = new Record(posterity.value, score, timeRemaining);
+    if (highScores === null){
+        return 
+    } else {
     highScores.push(record);
     highScores = highScores.sort((a,b) => {return b.scoreLog - a.scoreLog})
     if (highScores.length > 10) {
         highScores.pop()
-    };
+        };
+    }
     window.localStorage.setItem('highScores', JSON.stringify(highScores))
 }
 //gets scores from storage and creates a list in html
