@@ -188,31 +188,28 @@ function makeQuiz() {
 }
 //creates new object containing user score data, pushes it to an array and sorts it high to low
 function scoreSort() {
-   highScores = JSON.parse(window.localStorage.getItem('highScores'));
+    if (localStorage.length != 0){
+        highScores = JSON.parse(window.localStorage.getItem('highScores'));  
+    } 
     let record = new Record(posterity.value, score, timeRemaining);
-    if (highScores === null){
-        return 
-    } else {
     highScores.push(record);
     highScores = highScores.sort((a,b) => {return b.scoreLog - a.scoreLog})
     if (highScores.length > 10) {
         highScores.pop()
         };
-    }
+    
     window.localStorage.setItem('highScores', JSON.stringify(highScores))
 }
 //gets scores from storage and creates a list in html
 function getHighScores() {
     hiScoreBox.innerHTML = '';
+    if (localStorage.length != 0) {
     highScores = JSON.parse(window.localStorage.getItem('highScores'));
-    if (highScores === null) {
-        return
-     } else {
+    }
     for (i=0; i < highScores.length; i++){
         let ranking = document.createElement('li');
         ranking.textContent = `${highScores[i].posterityLog}: ${highScores[i].scoreLog} correct in ${(120 - highScores[i].timeRemainingLog)} seconds`;
         hiScoreBox.appendChild(ranking);
-        }
     }
 }
 
@@ -237,6 +234,7 @@ function displayResults() {
         if(posterity.value.length > 3){
             window.alert('Limit your initials to three characters')
         } else {
+
             scoreSort()
             getHighScores()
 
