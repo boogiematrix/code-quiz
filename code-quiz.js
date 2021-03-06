@@ -201,10 +201,14 @@ function scoreSort() {
 function getHighScores() {
     hiScoreBox.innerHTML = '';
     highScores = JSON.parse(window.localStorage.getItem('highScores'));
+    if (highScores === null) {
+        return
+     } else {
     for (i=0; i < highScores.length; i++){
         let ranking = document.createElement('li');
         ranking.textContent = `${highScores[i].posterityLog}: ${highScores[i].scoreLog} correct in ${(120 - highScores[i].timeRemainingLog)} seconds`;
         hiScoreBox.appendChild(ranking);
+        }
     }
 }
 
