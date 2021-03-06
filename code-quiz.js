@@ -1,26 +1,3 @@
-/*GIVEN I am taking a code quiz
-WHEN I click the start button
-todo: link a button event to the start of timer and quiz
-THEN a timer starts and I am presented with a question
-todo: create question and answer format and library
-WHEN I answer a question
-todo: use radial format for multiple choice
-THEN I am presented with another question
-todo: link button event to refresh question area
-WHEN I answer a question incorrectly
-todo: id correct and incorrect responses
-THEN time is subtracted from the clock
-todo: if/else that displays correct or incorrect, and subtracts time if
-incorrect, and adds points if correct
-WHEN all questions are answered or the timer reaches 0
-todo: stop timer at 0
-THEN the game is over
-todo: make game over screen
-WHEN the game is over
-THEN I can save my initials and my score
-create a function that appends a list with an 'initials' input along with
-the user's score
-*/
 
 //List of constant variables
 const timer = document.getElementById('timer');
@@ -36,6 +13,7 @@ const initialsInput = document.querySelector('input[type= "text"]')
 const hiScoreBox = document.getElementById('scorelist')
 const posterity = document.getElementById('initials')
 
+//stores score, initials, and time
 class Record {
     constructor(inits, scor, seconds) {
         this.posterityLog = inits;
@@ -144,7 +122,6 @@ let timeRemaining = 120;
 let finalTime = 0;
 let highScores = [];
 
-//TODO add localstorage to page
 //Turns button on to start quiz
 
 function init() {
@@ -183,7 +160,7 @@ function makeQuiz() {
     
     //this is where the loop repeat begins
     function checkAnswer() {
-        
+       //this checks if your answer is correct 
         let selected = document.querySelector('input[name="question"]:checked').value;
         if (selected == false) {
             checkAnswer()
@@ -194,6 +171,7 @@ function makeQuiz() {
         };
         
         i++;
+        
         if (i === allQuestions.length) {
             clearInterval(timeInterval);
             timer.textContent = "";
@@ -208,7 +186,7 @@ function makeQuiz() {
     }
     
 }
-//creates new object containing user score data, pushes it to an array and sorts
+//creates new object containing user score data, pushes it to an array and sorts it high to low
 function scoreSort() {
    highScores = JSON.parse(window.localStorage.getItem('highScores'));
     let record = new Record(posterity.value, score, timeRemaining);
@@ -225,7 +203,7 @@ function getHighScores() {
     highScores = JSON.parse(window.localStorage.getItem('highScores'));
     for (i=0; i < highScores.length; i++){
         let ranking = document.createElement('li');
-        ranking.textContent = `${highScores[i].posterityLog}: ${highScores[i].scoreLog} correct ${highScores[i].timeRemainingLog} seconds`;
+        ranking.textContent = `${highScores[i].posterityLog}: ${highScores[i].scoreLog} correct in ${(120 - highScores[i].timeRemainingLog)} seconds`;
         hiScoreBox.appendChild(ranking);
     }
 }
